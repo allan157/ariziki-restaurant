@@ -42,7 +42,7 @@ class User(AbstractBaseUser):
         (RESTAURANT, 'Restaurant'),
         (CUSTOMER, 'Customer'),
     )
-    first_name = models.CharField(max_length=100).models.CharField( max_length=50)
+    first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)   
     email = models.EmailField(max_length=255, unique=True)
@@ -73,3 +73,12 @@ class User(AbstractBaseUser):
     
     def has_module_perms(self, app_label):
         return True
+    
+    
+class UserProfile(models.Model):
+    user = oneToOneField(user, on_delete=models.CASCADE, blank=True, null=True )
+    profile_picture = models.ImageField(upload_to='users/profile_pictures', blank=True, null=True)
+    cover_photo = models.ImageField(upload_to='users/cover_photos', blank=True, null=True)
+    address_line_1 = models.CharField(max_length=50, blank=True, null=True)
+    address_line_2 = models.CharField(max_length=50, blank=True, null=True)
+    
